@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+                           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+
+    <!-- middleware datasource  com.hand.hap.core.JndiObjectFactoryBean-->
+    <!-- jndi dataSource-->
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="${db.jndiName}"/>
+    </bean>
+    <!-- builtin datasource -->
+    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+    <!--<property name="driverClassName"-->
+    <!--value="com.mysql.jdbc.Driver"/>-->
+    <!--<property name="url" value="jdbc:mysql://127.0.0.1:3306/hap_dev"/>-->
+    <!--<property name="username" value="hap_dev"/>-->
+    <!--<property name="password" value="hap_dev"/>-->
+    <!--</bean>-->
+
+    <!-- config transactionManager -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+    <!--<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+    <!-- 替换为基于原SqlSessionFactoryBean类修改的自定义类 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath*:/**/*Mapper.xml"/>
+    </bean>
+
+
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+
+    <!-- mapper definition -->
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="*.**.mapper"/>
+    </bean>
+
+
+    <context:component-scan base-package="**.*.service"/>
+
+
+
+    <aop:config expose-proxy="true">
+        <aop:pointcut id="servicePointcut" expression="execution(* *..*ServiceImpl.*(..))"/>
+    </aop:config>
+
+    <!-- 线程池 -->
+    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <!-- 核心线程数 -->
+        <property name="corePoolSize" value="5"/>
+        <!-- 最大线程数 -->
+        <property name="maxPoolSize" value="250"/>
+        <!-- 队列最大长度 -->
+        <property name="queueCapacity" value="1000"/>
+        <!-- 线程池维护线程所允许的空闲时间，默认为60s -->
+        <property name="keepAliveSeconds" value="120"/>
+    </bean>
+</beans>
