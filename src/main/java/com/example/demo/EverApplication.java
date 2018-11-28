@@ -9,7 +9,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  * 修改启动类，继承 SpringBootServletInitializer 并重写 configure 方法
  */
 @SpringBootApplication
-@MapperScan(basePackages = "com.example.demo.mapper")
+@MapperScan(basePackages = "com.example.demo.mapper", markerInterface = EverMapper.class)
 /*, markerInterface = EverMapper.class*/
 public class EverApplication {
 	public static void main(String[] args) {
