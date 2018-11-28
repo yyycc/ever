@@ -28,4 +28,9 @@ public class EverRoleController {
         Boolean b = roleService.insert(role);
         return role;
     }
+
+    @RequestMapping(value = "/queryList", method = RequestMethod.GET)
+    public List<EverRole> queryList(){
+        return roleService.queryList();
+    }
 }

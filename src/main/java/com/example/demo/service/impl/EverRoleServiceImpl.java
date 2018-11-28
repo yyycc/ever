@@ -18,7 +18,7 @@ public class EverRoleServiceImpl implements EverRoleService {
         if (role == null){
             return false;
         }
-        roleMapper.insert(role);
+        //roleMapper.insert(role);
         return true;
     }
 
@@ -27,7 +27,12 @@ public class EverRoleServiceImpl implements EverRoleService {
         EverRole role = new EverRole();
         role.setRoleName(roleName);
         List<EverRole> roles = new ArrayList<>();
-        roles = roleMapper.selectByCondition(role);
+        //roles = roleMapper.selectByCondition(role);
         return roles;
+    }
+
+    @Override
+    public List<EverRole> queryList() {
+        return roleMapper.queryList();
     }
 }

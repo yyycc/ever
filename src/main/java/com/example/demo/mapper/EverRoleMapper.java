@@ -1,7 +1,15 @@
 package com.example.demo.mapper;
 
 import com.example.demo.dto.EverRole;
-import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.*;
 
-public interface EverRoleMapper extends EverMapper<EverRole> {
+import java.util.List;
+
+public interface EverRoleMapper{
+    @Select("select * from role")
+    @Results({
+            @Result(property = "roleId", column = "role_id"),
+            @Result(property = "roleName", column = "role_name"),
+            @Result(property = "enableFlag", column = "enable_flag") })
+    public List<EverRole> queryList();
 }

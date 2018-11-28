@@ -1,18 +1,18 @@
 package com.example.demo;
 
+import com.example.demo.mapper.EverMapper;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.context.annotation.ComponentScan;
+import tk.mybatis.spring.annotation.MapperScan;
 
 /**
  * 修改启动类，继承 SpringBootServletInitializer 并重写 configure 方法
  */
 @SpringBootApplication
-@ComponentScan(basePackages = "com.example.demo.mapper")
-public class EverApplication extends SpringBootServletInitializer {
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder){
-		return builder.sources(EverApplication.class);
+@MapperScan(basePackages = "com.example.demo.mapper")
+/*, markerInterface = EverMapper.class*/
+public class EverApplication {
+	public static void main(String[] args) {
+		SpringApplication.run(EverApplication.class, args);
 	}
 }
