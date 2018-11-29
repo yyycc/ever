@@ -13,13 +13,10 @@ import java.util.List;
 public class EverRoleServiceImpl implements EverRoleService {
     @Autowired
     private EverRoleMapper roleMapper;
+
     @Override
-    public Boolean insert(EverRole role) {
-        if (role == null){
-            return false;
-        }
-        //roleMapper.insert(role);
-        return true;
+    public void insert(EverRole role) {
+        roleMapper.insert(role);
     }
 
     @Override

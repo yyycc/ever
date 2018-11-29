@@ -11,10 +11,10 @@ public class EverIndexController {
         return "home";
     }
 
-    @RequestMapping(value = "/{word}", method = RequestMethod.GET)
+   /* @RequestMapping(value = "/{word}", method = RequestMethod.GET)
     public String hello(@PathVariable("word") String word) {
         return "back:" + word;
-    }
+    }*/
 
     @RequestMapping(value = "/cyy", method = RequestMethod.GET)
     public String cyy() {

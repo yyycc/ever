@@ -21,12 +21,11 @@ public class EverRoleController {
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.GET)
-    public EverRole insert(){
+    public void insert() {
         EverRole role = new EverRole();
         role.setRoleName("ever");
         role.setEnableFlag("Y");
-        Boolean b = roleService.insert(role);
-        return role;
+        roleService.insert(role);
     }
 
     @RequestMapping(value = "/queryList", method = RequestMethod.GET)
