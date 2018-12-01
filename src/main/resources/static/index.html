@@ -1,11 +1,71 @@
 <html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <head>
-    <link rel="stylesheet" type="text/css" href="css.index.css"/>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <script type="text/javascript" src="script/jquery-3.3.1.min.js"></script>
 </head>
 <body>
+<script>
+    function btnAction() {
+        if ($("#square").css("background-color") == "rgb(255, 0, 0)") {
+            $("#square").css("background-color", "white");
+        } else {
+            $("#square").css("background-color", "red");
+        }
+    }
+</script>
 <div id="top" class="ever-top"></div>
-<img src="image/luffy.jpg">
-<h1>CYY</h1>
-<p>ever</p>
+<div id="left" class="ever-left" style="float: left">
+    <img src="image/luffy.jpg">
+    <h1>CYY</h1>
+    <p>ever</p>
+</div>
+<div id="right" class="ever-right">
+    <!--表格-->
+    <table border="1" borderColor="#e7ecf1">
+        <tr>
+            <th>TIME</th>
+            <th>INDEX</th>
+            <th>TASK</th>
+        </tr>
+        <tr>
+            <td width="100%" rowspan="4">
+                <div style="text-align: center;">Dec-First</div>
+            </td>
+            <td width="100%">
+                <div style="text-align: center;width: 60px">No.1</div>
+            </td>
+            <td width="100%">
+                <div style="text-align: center;width: 524px">安装redis(设置自启动)</div>
+            </td>
+        </tr>
+        <tr>
+            <td width="100%">
+                <div style="text-align: center;width: 60px">No.2</div>
+            </td>
+            <td width="100%">
+                <div style="text-align: center;width: 524px">安装docker</div>
+            </td>
+        </tr>
+        <tr>
+            <td width="100%">
+                <div style="text-align: center;width: 60px">No.3</div>
+            </td>
+            <td width="100%">
+                <div style="text-align: center;width: 524px">在docker中安装oracle</div>
+            </td>
+        </tr>
+        <tr>
+            <td width="100%">
+                <div style="text-align: center;width: 60px">No.4</div>
+            </td>
+            <td width="100%">
+                <div style="text-align: center;width: 524px">建基于oracle数据库的项目,布置在vps上</div>
+            </td>
+        </tr>
+    </table>
+    <div id="square" style="width: 50px;height: 50px;background-color: red;margin-left: 700px"></div>
+    <button id="btn_F" type="submit" onclick="btnAction()">HERE</button>
+</div>
 </body>
 </html>
