@@ -13,16 +13,70 @@
             $("#square").css("background-color", "red");
         }
     }
+    function add_task() {
+        /*tr数量*/
+        var i = $("#arrange tr").length;
+        var tr = document.createElement("tr");
+        var td_no = document.createElement("td");
+        var td_task = document.createElement("td");
+        var div_no = document.createElement("div");
+        div_no.style.textAlign = "center";
+        div_no.style.width = "60px";
+        div_no.innerHTML = "No." + i;
+        var div_task = document.createElement("div");
+        div_task.style.width = "524px";
+        var input = document.createElement("input");
+        input.type = "text";
+        input.style.border = " 0px #e7ecf1 solid";
+        input.style.width = "525px";
+        input.style.height = "23";
+        input.id = "input_" + i;
+        div_task.appendChild(input);
+        td_no.appendChild(div_no);
+        td_task.appendChild(div_task);
+        tr.appendChild(td_no);
+        tr.appendChild(td_task);
+        $("#arrange tr").last().after(tr);
+    }
+    function save_task() {
+        var param = {};
+        var columns = [];
+        var index = 0;
+        var table = document.getElementById("arrange");
+        for (var i = 1; i < table.rows.length; i++) {
+            var columnInfo = {};
+            columnInfo["taskContent"] = $("#input_" + i)[0].value;
+            columns[index] = columnInfo;
+            index++;
+        }
+        param["columnsInfo"] = columns;
+        param["status"] = "NEW";
+        param["time"] = $("#time")[0].value;
+        $.ajax({
+            url: 'http://localhost:8080/insert',
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify([param]),
+            success: function (datas) {
+                if (datas == "success") {
+                    //刷新页面
+                    window.location.reload();
+                }
+            }
+        })
+    }
 </script>
 <div id="top" class="ever-top"></div>
 <div id="left" class="ever-left" style="float: left">
-    <img src="image/luffy.jpg">
+    <img src="image/luffy.jpg" style="width: 500px;height: 300px;">
     <h1>CYY</h1>
     <p>ever</p>
 </div>
 <div id="right" class="ever-right">
     <!--表格-->
-    <table border="1" borderColor="#e7ecf1">
+    <div style="margin-top: 10px;margin-left:520px;font-size: 22px;">01 | 任务明细</div>
+    <table id="detail" style="margin-top: 10px;" border="1" borderColor="#e7ecf1">
         <tr>
             <th>TIME</th>
             <th>INDEX</th>
@@ -30,7 +84,7 @@
         </tr>
         <tr>
             <td width="100%" rowspan="4">
-                <div style="text-align: center;">Dec-First</div>
+                <div style="text-align: center;">Dec-First<br/>12月第1周</div>
             </td>
             <td width="100%">
                 <div style="text-align: center;width: 60px">No.1</div>
@@ -64,8 +118,37 @@
             </td>
         </tr>
     </table>
-    <div id="square" style="width: 50px;height: 50px;background-color: red;margin-left: 700px"></div>
-    <button id="btn_F" type="submit" onclick="btnAction()">HERE</button>
+
+    <div style="margin-top: 10px;margin-left:20px;font-size: 22px;float: left">02 | 任务安排</div>
+    <img src="image/add_plan.png" style="width: 30px;height: 30px;margin-left: 12px;margin-top: 12px;cursor: pointer"
+         onclick="add_task()">
+    <img src="image/save_plan.png" style="width: 28px;height: 28px;margin-left: 12px;margin-top: 10px;cursor: pointer"
+         onclick="save_task()">
+    <table id="arrange" style="margin-top: 10px;" border="1" borderColor="#e7ecf1">
+        <tr>
+            <th>TIME</th>
+            <th>INDEX</th>
+            <th>TASK</th>
+        </tr>
+        <tr>
+            <td id="time_all" width="100%" rowspan="10">
+                <div style="text-align: center;">
+                    <input id="time" type="text"
+                           style="text-align:center;border: 0px #e7ecf1 solid;width: 227px;height: 23px;"/>
+                </div>
+            </td>
+            <td width="100%">
+                <div style="text-align: center;width: 60px">No.1</div>
+            </td>
+            <td width="100%">
+                <div style="text-align: center;width: 524px">
+                    <input id="input_1" type="text" style="border: 0px #e7ecf1 solid;width: 525px;height: 23px;"/>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <!--<div id="square" style="width: 50px;height: 50px;background-color: red;margin-left: 700px"></div>
+    <button id="btn_F" type="submit" onclick="btnAction()">HERE</button>-->
 </div>
 </body>
 </html>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.EverTaskMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.dto.EverTask">
+        <id column="task_id" property="taskId" jdbcType="INTEGER"/>
+        <result column="task_content" property="taskContent" jdbcType="VARCHAR"/>
+        <result column="task_number" property="taskNumber" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="VARCHAR"/>
+        <result column="date_from" property="dateFrom" jdbcType="DATE"/>
+        <result column="date_to" property="dateTo" jdbcType="DATE"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="creation_date" property="creationDate" jdbcType="DATE"/>
+        <result column="last_update_date" property="lastUpdateDate" jdbcType="DATE"/>
+        <result column="created_by" property="createdBy" jdbcType="INTEGER"/>
+        <result column="last_updated_by" property="lastUpdatedBy" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <insert id="insertTask" parameterType="com.example.demo.dto.EverTask">
+        insert into task(task_content,task_number,time,date_from,date_to,status,description,creation_date,last_update_date,created_by,last_updated_by)
+        VALUES (#{taskContent},#{taskNumber},#{time},#{dateFrom},#{dateTo},#{status},#{description},#{creationDate},#{lastUpdateDate},#{createdBy},#{lastUpdatedBy})
+    </insert>
+</mapper>

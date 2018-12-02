@@ -16,7 +16,7 @@ public class EverRoleServiceImpl implements EverRoleService {
 
     @Override
     public void insert(EverRole role) {
-        roleMapper.insert(role);
+        roleMapper.insertRole(role);
     }
 
     @Override

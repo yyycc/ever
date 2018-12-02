@@ -7,7 +7,7 @@
         <result column="enable_flag" property="enableFlag" jdbcType="INTEGER" />
     </resultMap>
 
-    <insert id="insert" parameterType="com.example.demo.dto.EverRole">
+    <insert id="insertRole" parameterType="com.example.demo.dto.EverRole">
         insert into role(role_name,enable_flag) VALUES (#{roleName},#{enableFlag})
     </insert>
 </mapper>

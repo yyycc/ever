@@ -14,5 +14,5 @@ public interface EverRoleMapper{
             @Result(property = "enableFlag", column = "enable_flag") })
     public List<EverRole> queryList();
 
-    void insert(EverRole role);
+    void insertRole(EverRole role);
 }
