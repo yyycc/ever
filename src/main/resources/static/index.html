@@ -52,8 +52,9 @@
         param["columnsInfo"] = columns;
         param["status"] = "NEW";
         param["time"] = $("#time")[0].value;
+        var url = 'http://localhost:80/insert';
         $.ajax({
-            url: 'http://localhost:8080/insert',
+            url: url,
             type: "POST",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
