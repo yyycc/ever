@@ -6,6 +6,8 @@ import com.example.demo.service.EverTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EverTaskServiceImpl implements EverTaskService {
     @Autowired
@@ -14,5 +16,10 @@ public class EverTaskServiceImpl implements EverTaskService {
     @Override
     public void insert(EverTask everTask) {
         taskMapper.insertTask(everTask);
+    }
+
+    @Override
+    public List<EverTask> queryTask(EverTask everTask) {
+        return taskMapper.queryTask(everTask);
     }
 }

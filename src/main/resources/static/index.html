@@ -6,7 +6,83 @@
 </head>
 <body>
 <script>
-    /*获取项目绝对路径*/
+    var date = new Date;
+    var month = date.getMonth();
+    var week = new Date().getDay();
+    /*周末开放任务安排*/
+    if (week > 4) {
+        $("#arrange").css("display", "block")
+    }
+    /*查詢*/
+    var time = ["Jan", "Feb", "Mar", "Apr", "May", "June", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    var url = window.location.href;
+    $.ajax({
+        url: url + "query",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify({time: time[month]}),
+        success: function (datas) {
+            if (datas.length > 0) {
+                /*画表格*/
+                for (var i = 0; i < datas.length; i++) {
+                    var td_time = document.createElement("td");
+                    var div_time = document.createElement("div");
+                    td_time.rowSpan = datas.length;
+                    div_time.style.textAlign = "center";
+                    div_time.style.width = "244px";
+                    div_time.innerHTML = datas[0].time;
+                    var j = i + 1;
+                    var tr = document.createElement("tr");
+                    var td_no = document.createElement("td");
+                    var td_task = document.createElement("td");
+                    var div_no = document.createElement("div");
+                    var div_task = document.createElement("div");
+                    div_no.style.textAlign = "center";
+                    div_no.style.width = "60px";
+                    div_no.innerHTML = "No." + j;
+                    div_task.style.width = "524px";
+                    div_task.style.textAlign = "center";
+                    div_task.innerHTML = datas[i].taskContent;
+                    div_task.id = datas[i].taskId;
+                    /*点击任务可以看见详细信息*/
+                    div_task.onclick = function (that) {
+                        //window.open ("view/task_detail.html", "detail", "height=200, width=500, top=200,left=400,toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no")
+                        var task_id = that.currentTarget.id;
+                        /*查出起止时间和状态*/
+                        $.ajax({
+                            url: url + "query",
+                            type: "POST",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify({taskId: task_id}),
+                            success: function (datas) {
+                                var beginDate = document.getElementById("date_from");
+                                var endDate = document.getElementById("date_to");
+                                beginDate.value = datas[0].dateFrom.substring(0, 10);
+                                endDate.value = datas[0].dateTo.substring(0, 10);
+                                $("#task_detail").css("display", "block");
+                                $("#status").val(datas[0].status);
+                            }
+                        })
+                    }
+                    td_time.appendChild(div_time);
+                    td_no.appendChild(div_no);
+                    td_task.appendChild(div_task);
+                    if (i == 0) {
+                        tr.appendChild(td_time);
+                    }
+                    tr.appendChild(td_no);
+                    tr.appendChild(td_task);
+                    $("#detail tr").last().after(tr);
+                }
+            } else {
+                $("#detail").css("display", "none");
+            }
+        },
+        error: function (datas) {
+        }
+    })
     function btnAction() {
         if ($("#square").css("background-color") == "rgb(255, 0, 0)") {
             $("#square").css("background-color", "white");
@@ -37,7 +113,7 @@
         td_task.appendChild(div_task);
         tr.appendChild(td_no);
         tr.appendChild(td_task);
-        $("#arrange tr").last().after(tr);
+        $("#detail tr").last().after(tr);
     }
     function save_task() {
         var param = {};
@@ -86,49 +162,27 @@
             <th>INDEX</th>
             <th>TASK</th>
         </tr>
-        <tr>
-            <td width="100%" rowspan="4">
-                <div style="text-align: center;">Dec-First<br/>12月第1周</div>
-            </td>
-            <td width="100%">
-                <div style="text-align: center;width: 60px">No.1</div>
-            </td>
-            <td width="100%">
-                <div style="text-align: center;width: 524px">安装redis(设置自启动)</div>
-            </td>
-        </tr>
-        <tr>
-            <td width="100%">
-                <div style="text-align: center;width: 60px">No.2</div>
-            </td>
-            <td width="100%">
-                <div style="text-align: center;width: 524px">安装docker</div>
-            </td>
-        </tr>
-        <tr>
-            <td width="100%">
-                <div style="text-align: center;width: 60px">No.3</div>
-            </td>
-            <td width="100%">
-                <div style="text-align: center;width: 524px">在docker中安装oracle</div>
-            </td>
-        </tr>
-        <tr>
-            <td width="100%">
-                <div style="text-align: center;width: 60px">No.4</div>
-            </td>
-            <td width="100%">
-                <div style="text-align: center;width: 524px">建基于oracle数据库的项目,布置在vps上</div>
-            </td>
-        </tr>
     </table>
-
+    <!--任务起止时间以及状态-->
+    <div id="task_detail" style="margin-top: 10px;display: none">
+        <label class="fc_table_label">起始时间</label>
+        <input id="date_from" type="date"/>
+        <label class="fc_table_label">结束时间</label>
+        <input id="date_to" type="date"/>
+        <label class="fc_table_label">任务状态</label>
+        <select id="status">
+            <option value="NEW">新建</option>
+            <option value="ING">进行中</option>
+            <option value="DOWN">完成</option>
+            <option value="FAIL">失败</option>
+        </select>
+    </div>
     <div style="margin-top: 10px;margin-left:20px;font-size: 22px;float: left">02 | 任务安排</div>
     <img src="image/add_plan.png" style="width: 30px;height: 30px;margin-left: 12px;margin-top: 12px;cursor: pointer"
          onclick="add_task()">
     <img src="image/save_plan.png" style="width: 28px;height: 28px;margin-left: 12px;margin-top: 10px;cursor: pointer"
          onclick="save_task()">
-    <table id="arrange" style="margin-top: 10px;" border="1" borderColor="#e7ecf1">
+    <table id="arrange" style="margin-top: 10px;display: none" border="1" borderColor="#e7ecf1">
         <tr>
             <th>TIME</th>
             <th>INDEX</th>

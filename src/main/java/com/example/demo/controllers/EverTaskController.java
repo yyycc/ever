@@ -41,6 +41,12 @@ public class EverTaskController {
         }
         return tasks;
     }
+
+    @RequestMapping(value = "/query")
+    public List<EverTask> insert(@RequestBody EverTask everTask) throws ParseException {
+        List<EverTask> tasks = taskService.queryTask(everTask);
+        return tasks;
+    }
 }
 
 

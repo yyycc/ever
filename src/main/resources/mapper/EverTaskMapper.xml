@@ -20,4 +20,17 @@
         insert into task(task_content,task_number,time,date_from,date_to,status,description,creation_date,last_update_date,created_by,last_updated_by)
         VALUES (#{taskContent},#{taskNumber},#{time},#{dateFrom},#{dateTo},#{status},#{description},#{creationDate},#{lastUpdateDate},#{createdBy},#{lastUpdatedBy})
     </insert>
+
+    <select id="queryTask" parameterType="com.example.demo.dto.EverTask" resultMap="BaseResultMap">
+        select t.*
+        from task t
+        where
+        1 = 1
+        <if test="time!=null">
+            and t.time like concat(concat('%',#{time}),'%')
+        </if>
+        <if test="taskId!=null">
+            and t.task_id = #{taskId}
+        </if>
+    </select>
 </mapper>
