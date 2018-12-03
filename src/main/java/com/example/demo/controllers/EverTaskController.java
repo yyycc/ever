@@ -19,12 +19,13 @@ public class EverTaskController {
     SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
 
     @RequestMapping(value = "/insert")
-    public String insert(@RequestBody Object[] objs) throws ParseException {
+    public List<EverTask> insert(@RequestBody Object[] objs) throws ParseException {
         Object objectInfo = ((LinkedHashMap) objs[0]).get("columnsInfo");
         Object objectStatus = ((LinkedHashMap) objs[0]).get("status");
         Object objectTime = ((LinkedHashMap) objs[0]).get("time");
         Date today = new Date();
         String dateString = sd.format(today);
+        List<EverTask> tasks = new ArrayList<>();
         for (int i = 0; i < ((ArrayList) objectInfo).size(); i++) {
             EverTask everTask = new EverTask();
             everTask.setTaskContent(((LinkedHashMap) ((ArrayList) objectInfo).get(i)).get("taskContent").toString());
@@ -36,8 +37,9 @@ public class EverTaskController {
             everTask.setLastUpdateDate(today);
             everTask.setLastUpdatedBy(1L);
             taskService.insert(everTask);
+            tasks.add(everTask);
         }
-        return "success";
+        return tasks;
     }
 }
 

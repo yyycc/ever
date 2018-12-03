@@ -6,6 +6,7 @@
 </head>
 <body>
 <script>
+    /*获取项目绝对路径*/
     function btnAction() {
         if ($("#square").css("background-color") == "rgb(255, 0, 0)") {
             $("#square").css("background-color", "white");
@@ -52,18 +53,20 @@
         param["columnsInfo"] = columns;
         param["status"] = "NEW";
         param["time"] = $("#time")[0].value;
-        var url = 'http://localhost:80/insert';
+        var url = window.location.href;
         $.ajax({
-            url: url,
+            url: url + "insert",
             type: "POST",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: JSON.stringify([param]),
             success: function (datas) {
-                if (datas == "success") {
+                if (datas.length > 0) {
                     //刷新页面
                     window.location.reload();
                 }
+            },
+            error: function (datas) {
             }
         })
     }
