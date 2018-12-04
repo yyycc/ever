@@ -18,4 +18,11 @@ public interface EverTaskService {
      * @param everTask 任务对象
      */
     List<EverTask> queryTask(EverTask everTask);
+
+    /**
+     * 更新任务
+     *
+     * @param everTask 任务对象
+     */
+    void updateTask(EverTask everTask);
 }

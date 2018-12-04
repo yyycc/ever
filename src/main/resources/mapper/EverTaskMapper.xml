@@ -33,4 +33,10 @@
             and t.task_id = #{taskId}
         </if>
     </select>
+
+    <update id="updateTask" parameterType="com.example.demo.dto.EverTask">
+        update task set
+        date_from = #{dateFrom}, date_to = #{dateTo},status = #{status}
+        where task_id = #{taskId}
+    </update>
 </mapper>

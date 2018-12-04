@@ -22,4 +22,9 @@ public class EverTaskServiceImpl implements EverTaskService {
     public List<EverTask> queryTask(EverTask everTask) {
         return taskMapper.queryTask(everTask);
     }
+
+    @Override
+    public void updateTask(EverTask everTask) {
+        taskMapper.updateTask(everTask);
+    }
 }

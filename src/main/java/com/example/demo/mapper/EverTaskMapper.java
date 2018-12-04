@@ -10,4 +10,6 @@ public interface EverTaskMapper {
     void insertTask(EverTask everTask);
 
     List<EverTask> queryTask(EverTask everTask);
+
+    void updateTask(EverTask everTask);
 }

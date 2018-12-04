@@ -59,10 +59,21 @@
                             success: function (datas) {
                                 var beginDate = document.getElementById("date_from");
                                 var endDate = document.getElementById("date_to");
-                                beginDate.value = datas[0].dateFrom.substring(0, 10);
-                                endDate.value = datas[0].dateTo.substring(0, 10);
+                                if (datas[0].dateFrom != null) {
+                                    beginDate.value = datas[0].dateFrom.substring(0, 10);
+                                } else {
+                                    beginDate.value = null;
+                                }
+                                if (datas[0].dateTo != null) {
+                                    endDate.value = datas[0].dateTo.substring(0, 10);
+                                } else {
+                                    endDate.value = null;
+                                }
                                 $("#task_detail").css("display", "block");
                                 $("#status").val(datas[0].status);
+                                $("#task_id").val(datas[0].taskId);
+                                $("div").not("#" + datas[0].taskId).css("color", "black");
+                                $("#" + datas[0].taskId).css("color", "red");
                             }
                         })
                     }
@@ -146,6 +157,29 @@
             }
         })
     }
+    function updateTask() {
+        var param = {
+            taskId: $("#task_id").val(),
+            dateFrom: $('#date_from')[0].value,
+            dateTo: $('#date_to')[0].value,
+            status: $("#status").val(),
+        }
+        $.ajax({
+            url: url + "update",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(param),
+            success: function (datas) {
+                if (datas != null) {
+                    //刷新页面
+                    window.location.reload();
+                }
+            },
+            error: function (datas) {
+            }
+        })
+    }
 </script>
 <div id="top" class="ever-top"></div>
 <div id="left" class="ever-left" style="float: left">
@@ -165,17 +199,19 @@
     </table>
     <!--任务起止时间以及状态-->
     <div id="task_detail" style="margin-top: 10px;display: none">
-        <label class="fc_table_label">起始时间</label>
+        <label style="margin-left:10px;">起始时间</label>
         <input id="date_from" type="date"/>
-        <label class="fc_table_label">结束时间</label>
+        <label>结束时间</label>
         <input id="date_to" type="date"/>
-        <label class="fc_table_label">任务状态</label>
+        <label>任务状态</label>
         <select id="status">
             <option value="NEW">新建</option>
             <option value="ING">进行中</option>
             <option value="DOWN">完成</option>
             <option value="FAIL">失败</option>
         </select>
+        <input id="task_id" style="display: none;"/>
+        <button id="update" onclick="updateTask()" type="button" style="margin-left: 10px;">更新</button>
     </div>
     <div style="margin-top: 10px;margin-left:20px;font-size: 22px;float: left">02 | 任务安排</div>
     <img src="image/add_plan.png" style="width: 30px;height: 30px;margin-left: 12px;margin-top: 12px;cursor: pointer"

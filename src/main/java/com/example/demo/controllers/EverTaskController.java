@@ -47,6 +47,12 @@ public class EverTaskController {
         List<EverTask> tasks = taskService.queryTask(everTask);
         return tasks;
     }
+
+    @RequestMapping(value = "/update")
+    public EverTask update(@RequestBody EverTask everTask) throws ParseException {
+        taskService.updateTask(everTask);
+        return everTask;
+    }
 }
 
 
