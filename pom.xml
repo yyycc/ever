@@ -26,8 +26,9 @@
 	</properties>
     <distributionManagement>
         <repository>
-            <id>Ever-Release</id>
-            <url>scp://repo/maven2</url>
+            <id>nexus-releases</id>
+            <name>releases</name>
+            <url>http://104.198.87.241:8081/nexus/content/repositories/releases/</url>
         </repository>
     </distributionManagement>
 
