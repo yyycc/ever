@@ -24,6 +24,12 @@
 		<java.version>1.8</java.version>
 		<mysql-connector-java.version>5.1.40</mysql-connector-java.version>
 	</properties>
+    <distributionManagement>
+        <repository>
+            <id>Ever-Release</id>
+            <url>scp://repo/maven2</url>
+        </repository>
+    </distributionManagement>
 
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-tomcat -->
