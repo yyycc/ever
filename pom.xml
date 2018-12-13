@@ -25,11 +25,11 @@
 		<mysql-connector-java.version>5.1.40</mysql-connector-java.version>
 	</properties>
     <distributionManagement>
-        <repository>
-            <id>nexus-releases</id>
-            <name>releases</name>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Nexus Snapshot Repository</name>
 			<url>http://104.198.87.241:8081/repository/maven-snapshots/</url>
-        </repository>
+        </snapshotRepository>
     </distributionManagement>
 
 	<dependencies>
