@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -43,7 +44,23 @@ public class EverTaskController {
     }
 
     @RequestMapping(value = "/query")
-    public List<EverTask> insert(@RequestBody EverTask everTask) throws ParseException {
+    public List<EverTask> insert(@RequestBody EverTask everTask, HttpServletResponse response) throws ParseException {
+        response.setHeader("Access-Control-Allow-Origin", "http://192.168.10.67:8081");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "x-requested-with, Content-Type");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        List<EverTask> tasks = taskService.queryTask(everTask);
+        return tasks;
+    }
+
+    @RequestMapping(value = "/query/info")
+    public List<EverTask> queryInfo(EverTask everTask, HttpServletResponse response) throws ParseException {
+        response.setHeader("Access-Control-Allow-Origin", "http://192.168.10.67:8081");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "x-requested-with, Content-Type, token, Accept");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
         List<EverTask> tasks = taskService.queryTask(everTask);
         return tasks;
     }
