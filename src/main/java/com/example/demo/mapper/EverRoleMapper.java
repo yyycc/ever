@@ -15,4 +15,6 @@ public interface EverRoleMapper{
     public List<EverRole> queryList();
 
     void insertRole(EverRole role);
+
+    EverRole queryByRoleName(EverRole role);
 }

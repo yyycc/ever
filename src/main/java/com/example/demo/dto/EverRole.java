@@ -23,4 +23,6 @@ public class EverRole {
      * N:不可用 Y:可用
      */
     private String enableFlag;
+
+    private String password;
 }

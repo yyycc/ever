@@ -10,4 +10,14 @@
     <insert id="insertRole" parameterType="com.example.demo.dto.EverRole">
         insert into role(role_name,enable_flag) VALUES (#{roleName},#{enableFlag})
     </insert>
+
+    <select id="queryByRoleName" parameterType="com.example.demo.dto.EverRole" resultMap="BaseResultMap">
+        select t.*
+        from role t
+        where
+        1 = 1
+        <if test="roleName!=null">
+            and t.role_name = #{roleName}
+        </if>
+    </select>
 </mapper>

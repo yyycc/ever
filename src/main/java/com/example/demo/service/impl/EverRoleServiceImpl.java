@@ -20,12 +20,11 @@ public class EverRoleServiceImpl implements EverRoleService {
     }
 
     @Override
-    public List<EverRole> queryByRoleName(String roleName) {
+    public EverRole queryByRoleName(String roleName) {
         EverRole role = new EverRole();
         role.setRoleName(roleName);
-        List<EverRole> roles = new ArrayList<>();
-        //roles = roleMapper.selectByCondition(role);
-        return roles;
+        role = roleMapper.queryByRoleName(role);
+        return role;
     }
 
     @Override

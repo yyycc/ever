@@ -18,7 +18,7 @@ public interface EverRoleService {
      * @param roleName 角色名
      * @return 角色列表
      */
-    List<EverRole> queryByRoleName(String roleName);
+    EverRole queryByRoleName(String roleName);
 
     List<EverRole> queryList();
 
