@@ -37,101 +37,8 @@
             width: 200px;
             height: 200px;
         }
-
         input {
             width: 100px;
-        }
-
-        .Fireworks {
-            width: 0px;
-            height: 0px;
-            position: absolute;
-            border: 4px solid;
-            border-radius: 5px;
-        }
-
-        .heart {
-            width: 10px;
-            height: 10px;
-            position: fixed;
-            transform: rotate(45deg);
-            -webkit-transform: rotate(45deg);
-            -moz-transform: rotate(45deg);
-        }
-
-        .heart:after, .heart:before {
-            content: '';
-            width: inherit;
-            height: inherit;
-            background: inherit;
-            border-radius: 50%;
-            -webkit-border-radius: 50%;
-            -moz-border-radius: 50%;
-            position: fixed;
-        }
-
-        .heart:after {
-            top: -5px;
-        }
-
-        .heart:before {
-            left: -5px;
-        }
-
-        .sqrt {
-            width: 0px;
-            height: 0px;
-            border: 50px solid red;
-        }
-
-        .tri {
-            border-color: transparent transparent red red;
-        }
-
-        .cir {
-            border-radius: 50px;
-        }
-
-        .heart-1 {
-            position: absolute;
-            top: 200px;
-            left: 600px;
-            width: 0px;
-            height: 0px;
-            border: 50px solid rgba(16, 23, 199, 1);
-            border-radius: 50px;
-            display: inline-block;
-        }
-
-        .heart-2 {
-            position: absolute;
-            top: 200px;
-            left: 650px;
-            width: 0px;
-            height: 0px;
-            border: 50px solid rgba(16, 23, 199, 1);
-            display: inline-block;
-        }
-
-        .heart-3 {
-            position: absolute;
-            top: 150px;
-            left: 650px;
-            width: 0px;
-            height: 0px;
-            border: 50px solid rgba(16, 23, 199, 1);
-            border-radius: 50px;
-            display: inline-block;
-        }
-
-        .heart-all {
-            position: absolute;
-            top: -450px;
-            left: 100px;
-            width: 0px;
-            height: 0px;
-            transform: rotate(45deg);
-            display: inline-block;
         }
     </style>
 </head>
@@ -317,29 +224,15 @@
     }
 </script>
 <div id="top" class="ever-top"></div>
-<div id="left" class="ever-left" style="float: left;display: block">
-    <img id="image" src="image/luffy.jpg" style="width: 500px;height: 300px;">
-    <h1 id="cyy" tabindex="0">CYY</h1>
+<div id="left" class="ever-left" style="float: left;display: none">
+    <img src="image/luffy.jpg" style="width: 500px;height: 300px;">
+    <h1>CYY</h1>
     <p>ever</p>
 </div>
 <!--事件-->
 <input type="text" name="age" size=3" id="number">
 <div id="parent" draggable="true">
     <div id="child">
-    </div>
-</div>
-<div class="sqrt">
-</div>
-<div class="sqrt tri">
-</div>
-<div class="sqrt cir">
-</div>
-<div class="heart-all">
-    <div class="heart-1">
-    </div>
-    <div class="heart-2">
-    </div>
-    <div class="heart-3">
     </div>
 </div>
 <div id="aside" class="aside is-show color">
@@ -369,36 +262,26 @@
     此区域可拖拉
 </div>
 <script type="text/javascript">
-    var img = document.getElementById('image');
-    img.onloadstart = function (ev) {
-        //并没有调用呀
-        alert('down');
-    }
     function inputHandler(e) {
         console.log(e.target.value);
     }
-
-    select.addEventListener('input', inputHandler);
-
-    function sendAjax() {
+    select.addEventListener('input',inputHandler);
+    function sendAjax(){
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/role/queryList', true);
-        xhr.onload = function (ev) {
+        xhr.open('GET','/role/queryList',true);
+        xhr.onload= function (ev) {
             if (this.status === 200 || this.status === 304) {
                 debugger
             }
         }
         xhr.send();
     }
-
     function check(e) {
         if (e.charCode < 97 || e.charCode > 122) {
             e.preventDefault();
         }
     }
-
-    number.addEventListener('keypress', check, false);
-
+    number.addEventListener('keypress',check,false);
     function hide(e) {
         console.log(this === e.currentTarget);  // 总是 true
         console.log(this === e.target);  // 有可能不是 true
@@ -406,16 +289,14 @@
     }
 
     para.addEventListener('click', hide, false);
-
     function alert(e) {
         if (e.target.nodeName.toLowerCase() === 'li') {
             console.log(e.target.innerHTML)
         }
     }
-
-    (function () {
+    (function() {
         var list = document.getElementById('color-list');
-        list.addEventListener('click', alert, false)
+        list.addEventListener('click',alert,false)
     })();
     var b = document.body;
     var p = document.getElementById('parent');
@@ -436,41 +317,24 @@
     c.addEventListener("click", function (e) {
         show()
     }, false);
-    /*b.addEventListener("click", function (e) {
+    b.addEventListener("click", function (e) {
         change("red", b, 'click-body')
-    }, false);*/
-
+    }, false);
     function showKey(e) {
         console.log('ALT key pressed: ' + e.altKey);
         console.log('CTRL key pressed: ' + e.ctrlKey);
         console.log('META key pressed: ' + e.metaKey);
         console.log('SHIFT key pressed: ' + e.shiftKey);
     }
-
-    // b.addEventListener("click", showKey, false);
-
+    b.addEventListener("click",showKey, false);
     function showClient(evt) {
         console.log(
             'clientX value: ' + evt.clientX + '\n' +
             'clientY value: ' + evt.clientY + '\n'
         );
     }
-
-    // b.addEventListener("mousedown", showClient, false);
+    b.addEventListener("mousedown",showClient,false)
 </script>
-<table border="1">
-    <tr>
-        <th>一月 <dialog open>这是打开的对话窗口</dialog></th>
-        <th>二月</th>
-        <th>三月</th>
-    </tr>
-    <tr>
-        <td>31</td>
-        <td>28</td>
-        <td>31</td>
-    </tr>
-</table>
-<a id="a" href="javascript:console.log('Hello')">点击</a>
 <div id="right" style="display: none" class="ever-right">
     <!--表格-->
     <div style="margin-top: 10px;margin-left:520px;font-size: 22px;">01 | 任务明细</div>
@@ -528,111 +392,6 @@
     <!--<div id="square" style="width: 50px;height: 50px;background-color: red;margin-left: 700px"></div>
     <button id="btn_F" type="submit" onclick="btnAction()">HERE</button>-->
 </div>
-<a href="javascript: new Date().toLocaleTimeString();">点击</a>
-
-
-<script>
-    window.addEventListener('pageshow', function(event) {
-        console.log('pageshow: ', event);
-    });
-    window.addEventListener('load', function(event) {
-        console.log('所有资源都加载完成');
-    });
-    $(function () {
-        var input_e = $("input");
-        //javascript检测浏览器是否支持某些事件
-        //typeof input["oninput"] == "undefined"
-
-        var y = input_e.offset().top;
-        var x = input_e.offset().left;
-        var len = 0;
-        var firewNum = 9;// 烟花个数
-        // 点击页面 在鼠标位置 出现心形 烟花
-        $("body").click(function (ev) {
-            xin(ev); // 点击心形
-            Fireworks(ev)// 点击烟花
-        });
-
-        // 鼠标点击出现心形
-        function xin(ev) {
-            var color = randColor();
-            var div = document.createElement("div");
-            div.className = 'heart';
-            div.style.backgroundColor = color;
-            div.style.left = ev.pageX + 'px';
-            div.style.top = ev.pageY + 'px';
-            document.body.append(div);
-            var i = 1;
-            var j = 1;
-            var t = setInterval(function () {
-                div.style.top = div.offsetTop - 2.5 + 'px';
-                i -= 0.01;
-                j -= 0.02;
-                div.style.opacity = j;
-                var scale = 1 + (1 - i);
-                div.style.transform = 'scale(' + scale + ',' + scale + ') rotate(45deg)';
-                if (i < 0.01 || div.style.top + div.offsetTop >= window.innerHeight) {
-                    div.remove();
-                    clearInterval(t);
-                }
-            }, 30)
-        }
-
-        // 随机色
-        function randColor() {
-            var r = parseInt(Math.random() * 256);
-            var g = parseInt(Math.random() * 256);
-            var b = parseInt(Math.random() * 256);
-            // var a = Math.random().toFixed(1);
-            var a = 1;
-            var color = 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
-            return color;
-        }
-
-        // 创建烟花
-        function Fireworks(ev) {
-            // 烟花一种颜色-- 90去掉注释
-            var color=randColor();
-            for(var i=0;i<firewNum;i++)
-            {
-                create(ev,color);
-            }
-            /*for (var i = 0; i < firewNum; i++) {
-                create(ev, null);
-            }*/
-        }
-
-        function create(ev, color) {// 操作元素使用的 原生 js ,使用jquery 失败 取不到元素
-            var div = document.createElement("div");
-            div.className = 'Fireworks';
-            div.style.borderColor = randColor();
-            //    div.style.backgroundColor=color;
-            div.style.left = ev.pageX + 'px';
-            div.style.top = ev.pageY + 'px';
-            document.body.append(div);
-            var i = 1;
-            // 正负 -5右     +5左
-            var speedX = (parseInt(Math.random() * 2) === 0 ? 1 : -1) * parseInt(Math.random() * 5 + 1);
-            // 向上 -0--17
-            var speedY = -parseInt(Math.random() * 18);
-
-            var time = setInterval(function () {
-                ++i;
-                var left = div.offsetLeft + speedX;
-                var top = div.offsetTop + speedY + i;
-                // 加 i top 越来越大， 烟花下落，否则烟花向上飘 每次获取得div.offsetTop越来越大 速度越来越慢
-                div.style.left = left + 'px';
-                div.style.top = top + 'px';
-                if (div.offsetLeft + div.offsetWidth > window.innerWidth || div.offsetLeft < 2 || div.offsetTop + div.offsetHeight > window.innerHeight || div.offsetTop < 2) {
-                    //如果超出屏幕 移除div 关闭定时器
-                    div.remove();
-                    clearInterval(time);
-                }
-
-            }, 40)
-        }
-    });
-</script>
 
 
 </body>

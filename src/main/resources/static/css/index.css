@@ -1,7 +1,6 @@
 .ever-top {
-    width: 1366px;
+    width: 100%;
     height: 70px;
     background-color: cornflowerblue;
-    margin-left: -8px;
-    margin-top: -8px;
+    margin: auto;
 }
